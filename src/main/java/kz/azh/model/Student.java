@@ -1,4 +1,4 @@
-package kz.azh.app.list;
+package kz.azh.model;
 
 public class Student {
 	
