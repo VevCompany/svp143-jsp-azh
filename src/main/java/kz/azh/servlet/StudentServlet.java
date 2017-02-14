@@ -44,7 +44,7 @@ public class StudentServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
     	
-		//ArrayList<Student> list = StudentList.getStudents();
+		ArrayList<Student> list = StudentList.getStudents();
 		response.setContentType("text/html;charset UTF-8");
 		PrintWriter out = response.getWriter();		
 		try {
@@ -54,6 +54,26 @@ public class StudentServlet extends HttpServlet {
 			out.println("</head>");
 			out.println("<body>");
 			out.println("<h1>Spisok studentov</h1>");
+			out.println("<table border ='1'>");
+			out.println("<tr>");
+				out.println("<th>Name</th>");
+				out.println("<th>Group</th>");
+			out.println("</tr>");
+			
+
+			for(Student s : list) {
+				out.println("<tr>");
+					out.println("<td>");
+						out.println(s.getName());						
+					out.println("</td>");
+					out.println("<td>");
+						out.println(s.getGroup());						
+					out.println("</td>");
+				out.println("</tr>");				
+			}
+			out.println("</table>");
+			
+			
 			out.println("</body>");
 			out.println("</html>");
 		}finally {
