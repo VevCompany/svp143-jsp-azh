@@ -23,4 +23,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}	
+	
+	public boolean authValidate() {
+		
+		if("admin".equalsIgnoreCase(this.login) && "pass".equalsIgnoreCase(this.password))
+			return true;
+		return false;
+	}
 }
