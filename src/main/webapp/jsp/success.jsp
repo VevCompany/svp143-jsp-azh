@@ -7,21 +7,18 @@
 <h1>Search students</h1>
 <form action="st" method="post">	
 	<input type="text" name="name" class="field-divided"/>
-	<input type="text" name="group" class="field-divided"/>
 	<input type="submit" value="Search"/>
 </form>
 <table>
 	<thead>
 		<tr>
 			<th>Name</th>
-			<th>Group</th>
 		</tr>
 	</thead>
 	<tbody>
 	<c:forEach items="${students}" var="student">
 		<tr>
 			<td><c:out value="${student.name}" /></td>
-			<td><c:out value="${student.group}" /></td>
 		</tr>
 	</c:forEach>
 	<c:if test="${empty students }">

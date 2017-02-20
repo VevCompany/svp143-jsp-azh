@@ -2,25 +2,24 @@ package kz.azh.model;
 
 public class Student {
 	
+	private Long id;
 	private String name;
-	private String group;
 	
 	public Student() {}
-	public Student(String name, String group) {
+	public Student(Long id, String name) {
 		this.name = name;
-		this.group = group;
+		this.id = id;
 	}
-	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
-		name = name;
-	}
-	public String getGroup() {
-		return group;
-	}
-	public void setGroup(String group) {
-		group = group;
-	}
+		this.name = name;
+	}	
 }
