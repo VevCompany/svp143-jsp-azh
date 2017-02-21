@@ -4,6 +4,7 @@ public class Student {
 	
 	private Long id;
 	private String name;
+	private Long age;
 	
 	public Student() {}
 	public Student(Long id, String name) {
@@ -20,6 +21,12 @@ public class Student {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = name; 
+	}
+	public Long getAge() {
+		return age;
+	}
+	public void setAge(Long age) {
+		this.age = age;
 	}	
 }

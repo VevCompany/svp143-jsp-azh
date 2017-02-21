@@ -1,30 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<link rel="shortcut icon" href="static/images/logo.png" type="image/png" >
-<title>${title}</title>
-</head>
-<body>
-<h1>Search students</h1>
-<form action="st" method="post">	
-	<input type="text" name="name" class="field-divided"/>
-	<input type="submit" value="Search"/>
-</form>
-<table>
+<%@include file="../jsp/head.jsp" %>
+
+<c:url var="mainUrl" value="/st" />
+
+<table align="center" style="border: none;">
+	<tr>
+		<th style="width: 40%; border: none;">
+			<form action="${mainUrl}" method="post">	
+				<ul class="form-style-1">
+					<li>
+						<label>Имя <span class="required">*</span></label>
+						<input type="text" name="name" class="field-divided"/>
+					</li>
+					<%--<li>
+						<label>Возраст <span class="required">*</span></label>
+						<input type="text" name="age" class="field-divided"/>
+					</li>--%>
+	    			<li>
+						<input type="submit" value="Search"/>
+					</li>
+				</ul>
+			</form>
+			<div style="position: relative;">
+					<c:url var="addUrl" value="/st?new=1" />
+				<a href="${addUrl}"  class="button button1" >Добавить</a>
+			</div>
+		</th>
+	</tr>
+</table>
+<table  align="center" >
 	<thead>
 		<tr>
 			<th>Name</th>
+			<th>Age</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 	<c:forEach items="${students}" var="student">
 		<tr>
 			<td><c:out value="${student.name}" /></td>
+			<td><c:out value="${student.age}" /></td>
+			<td><c:out value="delete" /></td>
 		</tr>
 	</c:forEach>
 	<c:if test="${empty students }">
@@ -35,5 +53,4 @@
 
 </table>
 
-</body>
-</html>
+<%@include file="../jsp/footer.jsp" %>

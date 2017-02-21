@@ -18,12 +18,30 @@ public class StudentDAO {
 	static final String USER = "postgres";
 	static final String PASS = "postgres";*/
 
+    static Connection conn = null;
+    static Statement stmt = null;
+    static ResultSet result = null;
+	
+	public static void addStudent(Long _id, String _name, String _age) {
+		
+        /*StringBuilder insert = new StringBuilder("'8', '");        
+        insert.append(_name).append("', ").append("'").append(_age).append("')");*/
+		StringBuilder insert = new StringBuilder("'");        
+        insert.append(_id).append("', '").append(_name).append("', '").append(_age).append("')");
+        
+        try {    		
+    		conn = DBConnection.getter().getConnection();
+			stmt = conn.createStatement();
+			String sql = "INSERT INTO student (id, name, age) VALUES (" + insert;
+			result = stmt.executeQuery(sql);
+        }catch(SQLException e) {
+    		e.printStackTrace();
+    	}        
+	}
+
 	
 	public static ArrayList<Student> getByName(String _name){		
 
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet result = null;
         
         ArrayList<Student> list =  new ArrayList<Student>();
         StringBuilder where = new StringBuilder("WHERE 1 = 1");
@@ -32,9 +50,7 @@ public class StudentDAO {
 			where.append(" AND name like'%").append(_name).append("%'");
 		}
 		
-		try {
-    		//Class.forName(JDBC_DRIVER);
-    		
+		try {    		
     		conn = DBConnection.getter().getConnection();
 			stmt = conn.createStatement();
 			String sql = "SELECT id, name FROM student "+where;
@@ -47,8 +63,7 @@ public class StudentDAO {
 			}			
 		}catch(SQLException e) {
     		e.printStackTrace();
-    	}
-		
+    	}		
 		return list;
 	}
 }
