@@ -3,6 +3,9 @@
 <%@include file="../jsp/head.jsp" %>
 
 <c:url var="mainUrl" value="/st" />
+<c:url var="addUrl" value="/st?crud=create" />
+<c:url var="deleteUrl" value="/st?crud=delete&id="/>
+<c:url var="updateUrl" value="/st?crud=update&id="/>
 
 <table align="center" style="border: none;">
 	<tr>
@@ -23,7 +26,6 @@
 				</ul>
 			</form>
 			<div style="position: relative;">
-					<c:url var="addUrl" value="/st?new=1" />
 				<a href="${addUrl}"  class="button button1" >Добавить</a>
 			</div>
 		</th>
@@ -41,8 +43,9 @@
 	<c:forEach items="${students}" var="student">
 		<tr>
 			<td><c:out value="${student.name}" /></td>
-			<td><c:out value="${student.age}" /></td>
-			<td><c:out value="delete" /></td>
+			<td><c:out value="${student.age}" /></td>			
+			<td><a href="${deleteUrl}${student.id}" class="crud">Удалить</a>/
+			<a href="${updateUrl}${student.id}"  class="crud">Редактировать</a></td>
 		</tr>
 	</c:forEach>
 	<c:if test="${empty students }">

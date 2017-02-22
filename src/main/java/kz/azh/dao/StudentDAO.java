@@ -24,8 +24,6 @@ public class StudentDAO {
 	
 	public static void addStudent(Long _id, String _name, String _age) {
 		
-        /*StringBuilder insert = new StringBuilder("'8', '");        
-        insert.append(_name).append("', ").append("'").append(_age).append("')");*/
 		StringBuilder insert = new StringBuilder("'");        
         insert.append(_id).append("', '").append(_name).append("', '").append(_age).append("')");
         
@@ -38,10 +36,42 @@ public class StudentDAO {
     		e.printStackTrace();
     	}        
 	}
+	
+	public static void deleteStudent(Long _id){
+		
+		StringBuilder delete = new StringBuilder("WHERE 1 = 1");		
+		delete.append(" AND id = ").append(_id);
+		try {    		
+    		conn = DBConnection.getter().getConnection();
+			stmt = conn.createStatement();
+			String sql = "DELETE FROM student " + delete;
+			result = stmt.executeQuery(sql);
+        }catch(SQLException e) {
+    		e.printStackTrace();
+    	}  		
+	}
+	
+	public static Student getById(Long _id) {
+		
+		Student st = new Student();
+        StringBuilder where = new StringBuilder("WHERE 1 = 1");
+        where.append(" id = ").append(_id);
+        try { 
+			conn = DBConnection.getter().getConnection();
+			stmt = conn.createStatement();
+			String sql = "SELECT id, name, age FROM student "+where;
+			result = stmt.executeQuery(sql);
+	        st.setId(result.getLong(1));
+	        st.setName(result.getString(2));
+	        st.setAge(result.getLong(3));
+        }catch(SQLException e) {
+    		e.printStackTrace();
+    	}
+        return st;
+	}
 
 	
-	public static ArrayList<Student> getByName(String _name){		
-
+	public static ArrayList<Student> getByName(String _name){
         
         ArrayList<Student> list =  new ArrayList<Student>();
         StringBuilder where = new StringBuilder("WHERE 1 = 1");
@@ -53,13 +83,14 @@ public class StudentDAO {
 		try {    		
     		conn = DBConnection.getter().getConnection();
 			stmt = conn.createStatement();
-			String sql = "SELECT id, name FROM student "+where;
+			String sql = "SELECT id, name, age FROM student "+where;
 			result = stmt.executeQuery(sql);
 			
 			while(result.next()) {
 				Long id = result.getLong(1);
 				String name = result.getString(2);
-				list.add(new  Student(id, name));
+				Long age = result.getLong(3);
+				list.add(new  Student(id, name, age));
 			}			
 		}catch(SQLException e) {
     		e.printStackTrace();
