@@ -62,6 +62,11 @@ public class StudentServlet extends HttpServlet {
     	    	request.setAttribute("student", student);	 
     		break;
     		case "save":
+    			_id = Long.parseLong(id);
+        		StudentDAO.updateStudent(_id, name, age);
+    	    	students = StudentDAO.getByName("");
+    	    	request.setAttribute("title", "Список студентов");   
+    	    	request.setAttribute("students", students);	
     			break;
     		default:
     	    	students = StudentDAO.getByName(name);

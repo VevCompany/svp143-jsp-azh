@@ -12,9 +12,7 @@
 			
 				<ul class="form-style-1">
 					<li>
-						<label>ID <span class="required">*</span></label>
-						<c:out value="${student.id}"/>
-						<input type="text" name="id" class="field-divided" value="${student.id}"/>
+						<input type="hidden" name="id" class="field-divided" value="${student.id}"/>
 					</li>
 					<li>
 						<label>Имя <span class="required">*</span></label>

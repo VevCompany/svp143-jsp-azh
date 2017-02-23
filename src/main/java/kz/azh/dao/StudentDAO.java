@@ -11,13 +11,6 @@ import kz.azh.model.Student;
 
 public class StudentDAO {
 
-	/*static final String JDBC_DRIVER = "org.postgresql.Driver";
-	static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/test";
-	
-	
-	static final String USER = "postgres";
-	static final String PASS = "postgres";*/
-
     static Connection conn = null;
     static Statement stmt = null;
     static ResultSet result = null;
@@ -31,6 +24,21 @@ public class StudentDAO {
     		conn = DBConnection.getter().getConnection();
 			stmt = conn.createStatement();
 			String sql = "INSERT INTO student (id, name, age) VALUES (" + insert;
+			result = stmt.executeQuery(sql);
+        }catch(SQLException e) {
+    		e.printStackTrace();
+    	}        
+	}
+	
+
+	public static void updateStudent(Long _id, String _name, String _age) {
+		
+		StringBuilder update = new StringBuilder("set name = '");        
+		update.append(_name).append("', age = '").append(_age).append("' where id = ").append(_id);        
+        try {    		
+    		conn = DBConnection.getter().getConnection();
+			stmt = conn.createStatement();
+			String sql = "Update student " + update;
 			result = stmt.executeQuery(sql);
         }catch(SQLException e) {
     		e.printStackTrace();
@@ -54,16 +62,19 @@ public class StudentDAO {
 	public static Student getById(Long _id) {
 		
 		Student st = new Student();
-        StringBuilder where = new StringBuilder("WHERE 1 = 1");
-        where.append(" id = ").append(_id);
+        StringBuilder select = new StringBuilder("WHERE 1 = 1");
+        select.append("AND id = ").append(_id);
         try { 
 			conn = DBConnection.getter().getConnection();
 			stmt = conn.createStatement();
-			String sql = "SELECT id, name, age FROM student "+where;
+			String sql = "SELECT id, name, age FROM student " + select;
 			result = stmt.executeQuery(sql);
-	        st.setId(result.getLong(1));
-	        st.setName(result.getString(2));
-	        st.setAge(result.getLong(3));
+
+			while(result.next()) {
+				st.setId(result.getLong(1));
+				st.setName(result.getString(2));
+				st.setAge(result.getLong(3));				
+			}
         }catch(SQLException e) {
     		e.printStackTrace();
     	}
